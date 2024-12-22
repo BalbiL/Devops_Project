@@ -1,0 +1,11 @@
+environnement virtuel python:
+activer:source venv/bin/activate
+
+desactiver:deactivate
+
+redis:
+lancer:sudo service redis start
+ouvrir shell:redis-cli
+tester reponse serveur:redis-cli ping
+
+
