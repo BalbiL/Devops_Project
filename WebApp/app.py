@@ -37,5 +37,21 @@ def add_user():
     })
     return jsonify({"message": "User added successfully!"}), 200
 
+
+@app.route('/api/delete_user', methods=['POST'])
+def delete_user():
+    data = request.json
+    email = data.get('email')
+
+    # Check if the user exists
+    if not r.exists(f"user:{email}"):
+        return jsonify({"error": "User not found!"}), 404
+
+    # Delete the user from Redis
+    r.delete(f"user:{email}")
+    return jsonify({"message": "User deleted successfully!"}), 200
+
+
+
 if __name__ == '__main__':
     app.run(debug=True)

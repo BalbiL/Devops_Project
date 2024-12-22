@@ -25,25 +25,61 @@
     </form>
 
     <h2>Saved Accounts:</h2>
-    <ul id="user-list"></ul>
+    <ul id="user-list">
+
+        
+    </ul>
 
     <script>
         // Fetch and display users on page load
         async function fetchUsers() {
-            try {
-                const response = await fetch('/api/users');
-                const users = await response.json();
-                const userList = document.getElementById('user-list');
-                userList.innerHTML = '';
-                users.forEach(user => {
-                    const listItem = document.createElement('li');
-                    listItem.textContent = `${user.name} ${user.surname} - ${user.email}`;
-                    userList.appendChild(listItem);
-                });
-            } catch (error) {
-                console.error('Error fetching users:', error);
-            }
+        try {
+            const response = await fetch('/api/users');
+            const users = await response.json();
+            const userList = document.getElementById('user-list');
+            userList.innerHTML = ''; // Clear the list before populating
+
+            users.forEach(user => {
+                const listItem = document.createElement('li');
+                listItem.textContent = `${user.name} ${user.surname} - ${user.email} `;
+
+                // Create delete button
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = 'Delete';
+                deleteButton.classList.add('delete-button');
+                deleteButton.onclick = () => deleteUser(user.email);
+
+                // Append the delete button to the list item
+                listItem.appendChild(deleteButton);
+                userList.appendChild(listItem);
+            });
+        } catch (error) {
+            console.error('Error fetching users:', error);
         }
+    }
+
+
+
+    async function deleteUser(email) {
+        try {
+            const response = await fetch('/api/delete_user', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email: email }),
+            });
+
+            if (response.ok) {
+                alert('User deleted successfully!');
+                fetchUsers(); // Refresh the user list after deletion
+            } else {
+                alert('Error: Unable to delete user.');
+            }
+        } catch (error) {
+            console.error('Error deleting user:', error);
+        }
+    }
 
         // Add user via form submission
         document.getElementById('user-form').addEventListener('submit', async function (event) {
