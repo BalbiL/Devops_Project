@@ -9,3 +9,22 @@ ouvrir shell:redis-cli
 tester reponse serveur:redis-cli ping
 
 
+
+Lancer l'appli flask:
+Prerequis:Installer Redis,python, pip et les dependances dans "depandances.txt". Demandez a Chat, c'est pas bien compliqué.
+
+
+1.se mettre dans le directory webapp
+
+2.activer l'environnment python avec:source venv/bin/activate (un (venv) s'affiche au debut de la ligne l'invit de commande si tout marche)
+
+3.lancer les services redis avec:sudo service redis start
+
+4.S'assurer du foctionnement de redis avec:redis-cli ping (retourne PONG si ca marche)
+
+5.Lancer l'app avec:python3 app.py
+
+6.Afficher l'app sur un browser en copiant collant ce qu'il y ecrit après le "running on" (lien HTTP avec addresse ip et numero de port)
+
+
+
