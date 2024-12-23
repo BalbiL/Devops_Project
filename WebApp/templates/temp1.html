@@ -43,8 +43,13 @@
 <div class="conversation-block">
     <h2>Conversation</h2>
     <p id="selected-user" style="font-weight: bold; color: #333; text-align: center; margin-bottom: 10px;">
+        {% if selected_user %}
+        Selected User: {{ selected_user.formatted_name }}
+        {% else %}
         No user selected.
+        {% endif %}
     </p>
+
     <div id="conversation-content">
         <!-- Conversation content will go here -->
     </div>
@@ -71,8 +76,16 @@
                 deleteButton.classList.add('delete-button');
                 deleteButton.onclick = () => deleteUser(user.email);
 
-                // Append the delete button to the list item
+                const selectButton = document.createElement('button');
+                selectButton.textContent = 'Select';
+                selectButton.classList.add('select-button');
+                selectButton.onclick = () => selectUser(user);
+
+                listItem.appendChild(selectButton);
+
+                // Append buttons to the list item
                 listItem.appendChild(deleteButton);
+                listItem.appendChild(selectButton);
                 userList.appendChild(listItem);
             });
         } catch (error) {
@@ -131,48 +144,27 @@
         }
     });
 
-    // Initialize user list on page load
-    fetchUsers();
-
-    async function fetchUsers() {
+    async function selectUser(user) {
         try {
-            const response = await fetch('/api/users');
-            const users = await response.json();
-            const userList = document.getElementById('user-list');
-            userList.innerHTML = ''; // Clear the list before populating
-
-            users.forEach(user => {
-                const listItem = document.createElement('li');
-                listItem.textContent = `${user.name} (${user.surname}) - ${user.email} `;
-
-                // Create delete button
-                const deleteButton = document.createElement('button');
-                deleteButton.textContent = 'Delete';
-                deleteButton.classList.add('delete-button');
-                deleteButton.onclick = () => deleteUser(user.email);
-
-                // Create select button
-                const selectButton = document.createElement('button');
-                selectButton.textContent = 'Select';
-                selectButton.classList.add('select-button');
-                selectButton.onclick = () => selectUser(user);
-
-                // Append buttons to the list item
-                listItem.appendChild(deleteButton);
-                listItem.appendChild(selectButton);
-                userList.appendChild(listItem);
+            const response = await fetch('/api/select_user', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email: user.email })
             });
+
+            if (response.ok) {
+                const selectedUserElement = document.getElementById('selected-user');
+                selectedUserElement.textContent = `Selected User: ${user.name} (${user.surname})`;
+            }
         } catch (error) {
-            console.error('Error fetching users:', error);
+            console.error('Error selecting user:', error);
         }
     }
 
-    function selectUser(user) {
-        alert(`Selected user: ${user.name} (${user.surname}) - ${user.email}`);
-        const selectedUserElement = document.getElementById('selected-user');
-        selectedUserElement.textContent = `Selected User: ${user.name} (${user.surname})`;
-    }
-
+    // Initialize user list on page load
+    fetchUsers();
 </script>
 </body>
 </html>
