@@ -168,3 +168,17 @@ form button:hover {
 .select-button:hover {
     background-color: rgb(89, 121, 178);
 }
+
+#message-history {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+#message-list li {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 10px;
+    background-color: #f9f9f9;
+}
