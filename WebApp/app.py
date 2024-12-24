@@ -114,5 +114,27 @@ def get_messages():
 
     return jsonify(formatted_messages), 200
 
+@app.route('/api/delete_message', methods=['POST'])
+def delete_message():
+    data = request.json
+    email = data.get('email')
+    message_content = data.get('message')
+
+    if not email or not message_content:
+        return jsonify({'error': 'Email and message content are required'}), 400
+
+    # Récupérer tous les messages
+    messages = r.lrange('messages', 0, -1)
+
+    # Chercher et supprimer le message correspondant
+    for msg in messages:
+        decoded_msg = json.loads(msg)
+        if decoded_msg['email'] == email and decoded_msg['message'] == message_content:
+            r.lrem('messages', 1, msg)  # Supprimer 1 occurrence
+            return jsonify({'success': True}), 200
+
+    return jsonify({'error': 'Message not found'}), 404
+
+
 if __name__ == '__main__':
     app.run(debug=True)
