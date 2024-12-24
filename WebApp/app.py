@@ -1,20 +1,20 @@
-from flask import *
+import os
 import redis
+from flask import *
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
 
-# Connect to Redis
-r = redis.StrictRedis(host='host.docker.internal', port=6379, decode_responses=True)
+# Dynamically retrieve Redis host
+redis_host = os.getenv('REDIS_HOST', 'localhost')
+r = redis.StrictRedis(host=redis_host, port=6379, decode_responses=True)
 
 @app.route('/')
 def index():
-    # Serve the HTML page
     return render_template('temp1.html')
 
 @app.route('/api/users', methods=['GET'])
 def get_users():
-    # Retrieve all users from Redis
     users = [r.hgetall(key) for key in r.keys('user:*')]
     return jsonify(users)
 
@@ -25,11 +25,9 @@ def add_user():
     surname = data.get('surname')
     email = data.get('email')
 
-    # Check if email already exists
     if r.exists(f"user:{email}"):
         return jsonify({"error": "This email is already registered!"}), 400
 
-    # Save user to Redis
     r.hset(f"user:{email}", mapping={
         'name': name,
         'surname': surname,
@@ -37,21 +35,16 @@ def add_user():
     })
     return jsonify({"message": "User added successfully!"}), 200
 
-
 @app.route('/api/delete_user', methods=['POST'])
 def delete_user():
     data = request.json
     email = data.get('email')
 
-    # Check if the user exists
     if not r.exists(f"user:{email}"):
         return jsonify({"error": "User not found!"}), 404
 
-    # Delete the user from Redis
     r.delete(f"user:{email}")
     return jsonify({"message": "User deleted successfully!"}), 200
-
-
 
 if __name__ == '__main__':
     app.run(debug=True)
