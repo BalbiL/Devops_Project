@@ -5,7 +5,7 @@ app = Flask(__name__)
 app.secret_key = 'your_secret_key'
 
 # Connect to Redis
-r = redis.StrictRedis(host='localhost', port=6379, decode_responses=True)
+r = redis.StrictRedis(host='host.docker.internal', port=6379, decode_responses=True)
 
 @app.route('/')
 def index():
