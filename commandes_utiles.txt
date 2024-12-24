@@ -39,3 +39,21 @@ Docker:
 
 5.Le container run en background grace au -d dans la commande run, stopper le container avec:docker stop idcontainer (l'ID container est affiché avec docker ps,juste copier coller)
 
+
+
+
+
+GitHub:
+Push modifs:
+git add .
+
+git commit -m"Message de commit"
+
+git push origin Lucas
+
+Pull modifs:
+
+git fetch
+git checkout branch-mate
+
+git pull origin branch-mate
