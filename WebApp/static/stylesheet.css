@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* styles.css */
 
 /* Global font style */
@@ -15,14 +16,57 @@ body {
 
 /* Center the form */
 form {
+=======
+/* Global font style */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5e6d3;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* Container for both Create a User form and Saved Accounts */
+.user-accounts-container {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 50px;
+}
+
+/* for the h2 title */
+h2 {
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+/* Create User Form Styling */
+.create-user-form {
+    flex: 1;
+    margin-right: 20px;
+>>>>>>> elise
     background: #fff;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+<<<<<<< HEAD
     width: 300px;
 }
 
 /* Form inputs styling */
+=======
+}
+
+/* Saved Accounts Styling */
+.saved-accounts {
+    flex: 1;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Form Inputs Styling */
+>>>>>>> elise
 form label {
     font-weight: bold;
     margin-bottom: 5px;
@@ -30,14 +74,21 @@ form label {
 }
 
 form input {
+<<<<<<< HEAD
     width: 100%;
+=======
+    width: 97%;
+>>>>>>> elise
     padding: 8px;
     margin-bottom: 15px;
     border: 1px solid #ccc;
     border-radius: 4px;
 }
 
+<<<<<<< HEAD
 /* Submit button styling */
+=======
+>>>>>>> elise
 form button {
     background-color: #4CAF50;
     color: white;
@@ -45,6 +96,7 @@ form button {
     border: none;
     border-radius: 4px;
     cursor: pointer;
+<<<<<<< HEAD
 }
 
 form button:hover {
@@ -56,3 +108,126 @@ p {
     text-align: center;
     font-size: 14px;
 }
+=======
+    width: 100%;
+}
+
+form button:hover {
+    background-color: #45a049;
+}
+
+/* Success and Error Messages */
+#success-message, #error-message {
+    display: none;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+#success-message {
+    color: green;
+    background-color: #d4edda;
+}
+
+#error-message {
+    color: red;
+    background-color: #f8d7da;
+}
+
+/* Conversation block styling */
+.conversation-block {
+    background: #fff;
+    padding: 20px;
+    margin-top: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+#message-input {
+    width: 80%;
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#send-message {
+    margin-top: 10px;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#send-message:hover {
+    background-color: #45a049;
+}
+
+
+/* Boutons Delete */
+.delete-button {
+    background-color: #f44336;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-left: 10px;
+}
+
+/* color change au survol de la soursi */
+.delete-button:hover {
+    background-color: #e53935;
+}
+
+#user-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* for each elmt in the list */
+#user-list li {
+    background-color: #efefef;
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+#user-list li button {
+    margin-left: 10px;
+}
+
+.select-button {
+    margin-left: 10px;
+    background-color: #6589cb;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.select-button:hover {
+    background-color: rgb(89, 121, 178);
+}
+
+#message-history {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+#message-list li {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 10px;
+    background-color: #f9f9f9;
+}
+>>>>>>> elise
