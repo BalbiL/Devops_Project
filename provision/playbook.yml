@@ -1,0 +1,52 @@
+---
+- hosts: all
+  become: true
+
+  tasks:
+    # 1. Mettre à jour les paquets
+    - name: Mettre à jour les paquets apt
+      apt:
+        update_cache: yes
+
+    # 2. Installer le runtime (par exemple, Python 3)
+    - name: Installer Python 3
+      apt:
+        name: python3
+        state: present
+
+    - name: Installer pip pour Python 3
+      apt:
+        name: python3-pip
+        state: present
+
+    # 3. Installer la base de données (par exemple, PostgreSQL)
+    - name: Installer PostgreSQL
+      apt:
+        name: postgresql
+        state: present
+
+    # 4. Démarrer PostgreSQL
+    - name: S'assurer que PostgreSQL est démarré
+      service:
+        name: postgresql
+        state: started
+
+    # 5. Déployer l'application
+    - name: Installer les dépendances de l'application
+      command: pip3 install -r /vagrant/requirements.txt
+
+    - name: Démarrer l'application Flask
+  shell: nohup python3 /vagrant/app.py > /vagrant/app.log 2>&1 &
+  args:
+    executable: /bin/bash
+
+    # 6. Vérification de la santé de l'application
+    - name: Effectuer une vérification de santé
+      uri:
+        url: http://127.0.0.1:5000
+        return_content: yes
+      register: health_check
+
+    - name: Afficher le résultat de la vérification de santé
+      debug:
+        msg: "Résultat de la vérification de santé : {{ health_check.content }}"
