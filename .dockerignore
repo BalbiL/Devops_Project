@@ -1,0 +1,15 @@
+# Ignore virtual environments
+venv/
+WebApp/venv/
+
+# Ignore local git repository
+.git/
+.gitignore
+
+# Ignore other unnecessary files
+__pycache__/
+*.pyc
+*.pyo
+*.log
+*.sqlite3
+*.DS_Store

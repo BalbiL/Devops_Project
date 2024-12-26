@@ -39,6 +39,17 @@ Docker:
 
 5.Le container run en background grace au -d dans la commande run, stopper le container avec:docker stop idcontainer (l'ID container est affiché avec docker ps,juste copier coller)
 
+Docker compose:
+
+Demarrer le container:docker-compose up -d
+
+Attention!: Redis est démarré par docker-compose, il faut donc arreter les services redis avant de up:sudo service redis stop
+
+Debugging:docker-compose logs -f (permet de voir le log du container)
+
+Verifier que le container run:docker-compose ps
+
+Arreter le container:docker-compose down
 
 
 
