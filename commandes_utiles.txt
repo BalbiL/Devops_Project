@@ -51,6 +51,25 @@ Verifier que le container run:docker-compose ps
 
 Arreter le container:docker-compose down
 
+Kubernetes:
+
+(Se placer dans WebApp/)
+
+1.Demarrer minikube:minikube start
+
+2.Deployer les services/pvc/deploiements:kubectl apply -f kube/
+
+3.Checker l'etat des pods/services:kubectl get pods
+					kubectl get services
+					kubectl get pvc (doit etre bound)
+
+4.Exposer le service:minikube service flask-service (deux liens s'affichent, prendre le deuxieme pour ouvrir l'app)
+
+5.Debugging:kubectl logs "nom-de-pod"
+	kubectl get all
+
+6.Stopper le tout:kubectl delete -f kube/
+		minikube stop
 
 
 
