@@ -11,7 +11,10 @@ tester reponse serveur:redis-cli ping
 installer dependances:pip3 install -r dependances.txt
 
 sudo apt install -y python3-pip
+
+
 Lancer l'appli flask:
+
 Prerequis:Installer Redis,python, pip et les dependances dans "depandances.txt". Demandez a Chat, c'est pas bien compliqué.
 
 
@@ -28,12 +31,39 @@ Prerequis:Installer Redis,python, pip et les dependances dans "depandances.txt".
 6.Afficher l'app sur un browser en copiant collant ce qu'il y ecrit après le "running on" (lien HTTP avec addresse ip et numero de port)
 
 
+
+Vagrant:
+
+PS: Vagrant ne focntionne pas sur les WSL (windows Subsystem for Linux) que Lucas et Victor utilisent. Sur mac (Elise) virtual box ne focntionne pas et les autres providers de VM (parrallel desktop) requiert une licence pro pour focntionner avec vagrant. Il faut donc utiliser un OS windows (invite de commande) piur faire tourner vagrant dans le cadre du projet.
+
+1.Se positionner dans le directory du repo sur l'invit de commande windows, dans /WebApp
+
+2.Faire un vagrant up
+
+3.Vagrant ssh pour se connecter a la VM
+
+4.cd /vagrant pours se positionner dans le dossier partagé
+
+5.Pull l'image de l'app depuis docker hub (ou build l'image en local) si nouvelle vm et run avec meme commande que Docker etape 3
+
+6.Une fois l'app qui run avec docker (affiché dans sudo docker ps), se connecter avec l'adreese ip de la VM, ecrite dans le vagrant file  sur le port 5000.
+
+7. L'app peut run en meme temps qu'avec docker/docker-compose sur la host machine avec un autre container id
+
+
+
+
+IP address for enp0s8:  192.168.56.10
+
+config.vm.network "private_network", ip: "192.168.56.10"
+
+
 Docker:
 1.Demarrer Redis:sudo service redis start
 
-2.build l'image de l'app:docker build -t flask-webapp .
+2.build l'image de l'app:docker build -t flask-webapp . (ou pull depuis dockerhub)
 
-3.Run l'app via docker:docker run --network="host" -e REDIS_HOST=127.0.0.1 -d flask-webapp
+3.Run l'app via docker:docker run --network="host" -e REDIS_HOST=127.0.0.1 -d flask-webapp (a remplacer en fonction du nom de container)
 
 4.Verifier que le contanier run avec:docker ps
 
