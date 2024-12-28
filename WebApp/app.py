@@ -1,7 +1,24 @@
 import os
 import redis
 from flask import *
+import socket
 
+
+# Check if the app is running in Docker
+def is_running_in_docker():
+    try:
+        with open("/proc/self/cgroup") as f:
+            return any("docker" in line for line in f)
+    except FileNotFoundError:
+        return False
+
+# Dynamically retrieve Redis host based on the environment
+if is_running_in_docker():
+    # Inside Docker, Redis will be the service name in Docker Compose
+    redis_host = os.getenv('REDIS_HOST', 'redis')
+else:
+    # On the VM, connect to Redis via the VM's IP or localhost
+    redis_host = os.getenv('REDIS_HOST', 'localhost') 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
 
@@ -143,4 +160,4 @@ def delete_message():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True,host='0.0.0.0',port=5000)

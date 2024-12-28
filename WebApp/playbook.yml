@@ -1,0 +1,66 @@
+- hosts: all
+  become: true
+
+  tasks:
+    # Update apt packages
+    - name: Update apt packages
+      apt:
+        update_cache: yes
+
+    # Install Python 3 and pip (this may no longer be necessary if we're using Docker)
+    - name: Install Python 3 and pip3
+      apt:
+        name:
+          - python3
+          - python3-pip
+          - python3-venv
+        state: present
+      when: false  # Skip if using Docker Compose (Docker will handle everything)
+
+    # Install Redis
+    - name: Install Redis
+      apt:
+        name: redis-server
+        state: present
+
+    - name: Ensure Redis is started
+      service:
+        name: redis-server
+        state: started
+        enabled: yes
+
+
+    - name: Install Python dependencies
+      pip:
+        requirements: /vagrant/dependances.txt
+        executable: /usr/bin/pip3
+
+    # Install Docker
+    - name: Install Docker
+      apt:
+        name:
+          - docker.io
+          - docker-compose
+        state: present
+
+    - name: Start and enable Docker service
+      service:
+        name: docker
+        state: started
+        enabled: yes
+
+
+
+    # Build and start the application using Docker Compose
+    # - name: Start the web application using Docker Compose
+    #   command: docker-compose -f /home/vagrant/docker-compose up -d
+    #   args:
+    #     chdir: /home/vagrant
+    #     creates: /home/vagrant/docker-compose.yml
+
+    # # (Optional) Verify the containers are running
+    # - name: Check Docker container status
+    #   command: docker ps
+    #   register: docker_status
+    # - debug:
+    #     var: docker_status.stdout
