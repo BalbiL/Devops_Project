@@ -22,6 +22,8 @@ Prerequis:Installer Redis,python, pip et les dependances dans "dependances.txt":
 
 2.activer l'environnment python avec:source venv/bin/activate (un (venv) s'affiche au debut de la ligne l'invit de commande si tout marche)
 
+2.1 Installer dependances dans l'environnement virtuel:pip3 install -r dependances.txt
+
 3.lancer les services redis avec:sudo service redis start
 
 4.S'assurer du foctionnement de redis avec:redis-cli ping (retourne PONG si ca marche)
