@@ -47,7 +47,8 @@ jobs:
       run: docker build -t webapp ./WebApp
 
     - name: Deploy with Docker Compose
-      run: WebApp/docker-compose up -d
+      working-directory: ./WebApp
+      run: docker-compose up -d
 
     - name: Apply Kubernetes manifests
       run: |
