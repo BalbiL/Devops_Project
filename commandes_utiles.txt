@@ -1,6 +1,7 @@
 environnement virtuel python:
 activer:source venv/bin/activate
 
+
 desactiver:deactivate
 
 redis:
@@ -8,17 +9,16 @@ lancer:sudo service redis start
 ouvrir shell:redis-cli
 tester reponse serveur:redis-cli ping
 
-installer dependances:pip3 install -r dependances.txt
-
-sudo apt install -y python3-pip
-
 
 Lancer l'appli flask:
 
-Prerequis:Installer Redis,python, pip et les dependances dans "depandances.txt". Demandez a Chat, c'est pas bien compliqué.
+
+Prerequis:Installer Redis,python, pip et les dependances dans "dependances.txt":pip3 install -r dependances.txt
 
 
 1.se mettre dans le directory webapp
+
+1.2Creer l'environment virtuel si jamais crée:python3 -m venv venv
 
 2.activer l'environnment python avec:source venv/bin/activate (un (venv) s'affiche au debut de la ligne l'invit de commande si tout marche)
 
@@ -29,6 +29,7 @@ Prerequis:Installer Redis,python, pip et les dependances dans "depandances.txt".
 5.Lancer l'app avec:python3 app.py
 
 6.Afficher l'app sur un browser en copiant collant ce qu'il y ecrit après le "running on" (lien HTTP avec addresse ip et numero de port)
+
 
 
 
@@ -51,14 +52,15 @@ PS: Vagrant ne focntionne pas sur les WSL (windows Subsystem for Linux) que Luca
 7. L'app peut run en meme temps qu'avec docker/docker-compose sur la host machine avec un autre container id
 
 
+config.vm.network "private_network", ip: "192.168.56.10" (addresse de la vm, visible dans vagrantfile)
 
 
-IP address for enp0s8:  192.168.56.10
 
-config.vm.network "private_network", ip: "192.168.56.10"
 
 
 Docker:
+
+
 1.Demarrer Redis:sudo service redis start
 
 2.build l'image de l'app:docker build -t flask-webapp . (ou pull depuis dockerhub:docker pull balbil/flask-webapp)
@@ -73,7 +75,12 @@ docker run --network="host" -e REDIS_HOST=127.0.0.1 balbil/flask-webapp (image d
 
 5.Le container run en background grace au -d dans la commande run, stopper le container avec:docker stop idcontainer (l'ID container est affiché avec docker ps,juste copier coller)
 
+
+
+
+
 Docker compose:
+
 
 Demarrer le container:docker-compose up -d
 
@@ -85,7 +92,11 @@ Verifier que le container run:docker-compose ps
 
 Arreter le container:docker-compose down
 
+
+
+
 Kubernetes:
+
 
 (Se placer dans WebApp/)
 
