@@ -52,5 +52,5 @@ jobs:
 
     - name: Apply Kubernetes manifests
       run: |
-        kubectl apply -f kube/
+        kubectl apply -f WebApp/kube/
         kubectl rollout status deployment flask-deployment
