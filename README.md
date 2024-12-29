@@ -119,19 +119,188 @@ Running app inside a python virtual environment (venv) with python only
 ## III. Instructions
 
 ### 1. WebApp
+Running the app with python on linux machine.
+**Prerequisite**: Having python3, python3 venv, pip3 and Redis installed.
+
+- You can install python3 venv with: 
+   ```bash
+   sudo apt install python3-venv
+- If not done already, clone the repository.
+- Navigate to to the `WebApp` directory.
+- Activate the redis services with: 
+   ```bash
+   sudo service redis start
+- You can ensure redis is active with: 
+   ```bash
+   redis-cli ping
+- Create the python virtual environment if its the first time running the app: 
+   ```bash
+   python3 -m venv venv
+- Activate the Python virtual environment: 
+   ```bash
+   source venv/bin/activate
+   ```
+   *A (venv) will appear before your root directory, meaning you have successfully activated the venv.*
+- Install the dependencies in `dependances.txt` inside the virtual environment: 
+   ```bash
+   pip3 install -r dependances.txt
+- Run the app with: 
+   ```bash
+   python3 app.py
+- The app is now running on localhost, accessible through your browser by typing: `localhost:5000`
+
+When finished, you can deactivate the venv with: `deactivate`
 
 
 ### 2. Docker
+**Prerequisites**: Having Docker installed and a DockerHub account, Redis services started.
+
+- Still in the `WebApp` directory, activate the redis service if not up: 
+   ```bash
+   sudo service redis start
+- Build locally the docker image: 
+   ```bash
+   docker build -t flask-webapp .
+- Or pull the image from DockerHub: 
+   ```bash
+   docker pull balbil/flask-webapp
+- Run the images with:
+   ```bash
+   docker run --network="host" -e REDIS_HOST=127.0.0.1 flask-webapp 
+   docker run --network="host" -e REDIS_HOST=127.0.0.1 balbil/flask-webapp 
+   ```
+   *Depending of if want to use the dockerhub image or the locally built image.*
+
+- If you want to run the container in the background, use the -d flag:
+   ```bash
+   docker run --network="host" -e REDIS_HOST=127.0.0.1 -d flask-webapp 
+   docker run --network="host" -e REDIS_HOST=127.0.0.1 -d balbil/flask-webapp 
+- And then ensure the container is running with: 
+   ```bash
+   docker ps #(displays the containerID)
+   ```
+
+Once again the app is accessible on `localhost:5000`
+
+You can stop the container with: 
+   ```bash
+   docker stop <containerID>
+   ```
 
 
 ### 3. Docker compose  
 
+**Prerequisite**: Same as Docker.
+
+- Redis is started by docker-compose, you have to beforehand stop the redis services with : 
+   ```bash
+   sudo service redis stop
+   ```
+
+- Start the service with: 
+   ```bash
+   docker-compose up
+   docker-compose up -d #(to run in the background)
+   ```
+
+You can acces the container state with: 
+```bash
+docker-compose ps
+```
+   - App accessible on `localhost:5000`
+   - Stop the service with: `docker-compose down`
 
 ### 4. Kubernetes
+**Prerequisite**: Minikube installed, and all the prerequisite above.
 
+- Still in WebApp directory, activate minikube: 
+   ```bash
+   minikube start
+   ```
+- Activest the manifest yaml files with: 
+   ```bash
+   kubectl apply -f kube/
+   ```
+- You can check the pods and services status :
+   ```bash  
+   kubectl get pods
+   kubectl get services
+   kubectl get pvc #(must be bound)
+   ```
+- Expose the minikube service with: 
+   ```bahs
+   minikube service flask-service
+   ```
+   *Two ip addresses will be displayed, the app runs on the second one with its port number (with nothing in the “target port” tab).*
+
+- To stop the services: 
+   ```bahs
+   kubectl delete -f kube/
+	minikube stop
+   ```
 
 ### 5. Vagrant and IaC approach
+**Note**: For this part, any team member could not have vagrant working on a Linux system since we use Linux subsystems in windows and MacOs, both having problems with Vagrant.
+So all the vagrant testing and deployment was made from a windows machine, in the command terminal. The git repository is still the same, but no tests were made from a linux machine.
 
+**Prerequisites**: Vagrant and VirtualBox installed
+
+- In the repo, navigate to the `WebApp` folder.
+- Create or power an existing VM with: 
+   ```bash
+   vagrant up 
+   ```
+   If the VM was already previously provisioned, you can update the provisioning with: 
+   ```bash
+   vagrant provision 
+   ```
+- Connect to the vagrant VM with: 
+   ```bash
+   vagrant ssh
+   ```
+- Once in the VM terminal, navigate to the shared folder: `cd /vagrant`
+
+   In there you should see the same files as in `/WebApp` in the host machine.
+
+You can now run the app either with python or docker inside the VM. 
+The playbook installed most of the dependencies and services so for python you can just:
+   - Create the python virtual environment if its the first time running the app: 
+      ```bash
+      python3 -m venv venv
+      ```
+   - Activate the Python virtual environment: 
+      ```bash
+      source venv/bin/activate
+      ```
+   - Install the dependencies in `dependances.txt` inside the virtual environment: 
+      ```bash
+      pip3 install -r dependances.txt
+      ```
+   - Run the app with: 
+      ```bash
+      python3 app.py
+      ```
+      ***Note:*** *You have to create the venv outside of the shared folder /vagrant of the VM, or an error will prompt. Create the venv in the VM’s root directory, then activate the venv inside of the shared folder.*
+   - This time the app will run on the VM’s IP, check the vagrantfile for to see it’s: `192.168.56.10`
+
+And for docker:
+   - Build locally the docker image:
+      ```bahs
+      docker build -t flask-webapp .
+      ```
+   - Or pull the image from DockerHub: 
+      ```bahs
+      docker pull balbil/flask-webapp
+      ```
+   - Run the images with:
+      ```bash
+      docker run --network="host" -e REDIS_HOST=127.0.0.1 flask-webapp 
+      docker run --network="host" -e REDIS_HOST=127.0.0.1 balbil/flask-webapp 
+      ```
+   - This time the app will run on the VM’s IP as well, check the vagrantfile for to see it’s: `192.168.56.10`
+
+### 6. CI/CD
+To test the Ci/Cd pipeline, just pull or push some changes from the main branch. The results of the workflow are displayed in the Actions tab on the github repository page. 
 
 
 ## IV. Links
