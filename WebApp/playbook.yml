@@ -15,7 +15,7 @@
           - python3-pip
           - python3-venv
         state: present
-      when: false  # Skip if using Docker Compose (Docker will handle everything)
+      # when: false  # Skip if using Docker Compose (Docker will handle everything)
 
     # Install Redis
     - name: Install Redis
@@ -30,10 +30,7 @@
         enabled: yes
 
 
-    - name: Install Python dependencies
-      pip:
-        requirements: /vagrant/dependances.txt
-        executable: /usr/bin/pip3
+    
 
     # Install Docker
     - name: Install Docker
@@ -49,7 +46,10 @@
         state: started
         enabled: yes
 
-
+    - name: Install Python dependencies
+      pip:
+        requirements: /vagrant/dependances.txt
+        executable: /usr/bin/pip3
 
     # Build and start the application using Docker Compose
     # - name: Start the web application using Docker Compose
