@@ -1,6 +1,7 @@
 environnement virtuel python:
 activer:source venv/bin/activate
 
+
 desactiver:deactivate
 
 redis:
@@ -8,16 +9,20 @@ lancer:sudo service redis start
 ouvrir shell:redis-cli
 tester reponse serveur:redis-cli ping
 
-installer dependances:pip3 install -r dependances.txt
 
-sudo apt install -y python3-pip
 Lancer l'appli flask:
-Prerequis:Installer Redis,python, pip et les dependances dans "depandances.txt". Demandez a Chat, c'est pas bien compliqué.
+
+
+Prerequis:Installer Redis,python, pip et les dependances dans "dependances.txt":pip3 install -r dependances.txt
 
 
 1.se mettre dans le directory webapp
 
+1.2Creer l'environment virtuel si jamais crée:python3 -m venv venv
+
 2.activer l'environnment python avec:source venv/bin/activate (un (venv) s'affiche au debut de la ligne l'invit de commande si tout marche)
+
+2.1 Installer dependances dans l'environnement virtuel:pip3 install -r dependances.txt
 
 3.lancer les services redis avec:sudo service redis start
 
@@ -28,18 +33,90 @@ Prerequis:Installer Redis,python, pip et les dependances dans "depandances.txt".
 6.Afficher l'app sur un browser en copiant collant ce qu'il y ecrit après le "running on" (lien HTTP avec addresse ip et numero de port)
 
 
+
+
+Vagrant:
+
+PS: Vagrant ne focntionne pas sur les WSL (windows Subsystem for Linux) que Lucas et Victor utilisent. Sur mac (Elise) virtual box ne focntionne pas et les autres providers de VM (parrallel desktop) requiert une licence pro pour focntionner avec vagrant. Il faut donc utiliser un OS windows (invite de commande) piur faire tourner vagrant dans le cadre du projet.
+
+1.Se positionner dans le directory du repo sur l'invit de commande windows, dans /WebApp
+
+2.Faire un vagrant up
+
+3.Vagrant ssh pour se connecter a la VM
+
+4.cd /vagrant pours se positionner dans le dossier partagé
+
+5.Pull l'image de l'app depuis docker hub (ou build l'image en local) si nouvelle vm et run avec meme commande que Docker etape 3
+
+6.Une fois l'app qui run avec docker (affiché dans sudo docker ps), se connecter avec l'adreese ip de la VM, ecrite dans le vagrant file  sur le port 5000.
+
+7. L'app peut run en meme temps qu'avec docker/docker-compose sur la host machine avec un autre container id
+
+
+config.vm.network "private_network", ip: "192.168.56.10" (addresse de la vm, visible dans vagrantfile)
+
+
+
+
+
 Docker:
+
+
 1.Demarrer Redis:sudo service redis start
 
-2.build l'image de l'app:docker build -t flask-webapp .
+2.build l'image de l'app:docker build -t flask-webapp . (ou pull depuis dockerhub:docker pull balbil/flask-webapp)
 
-3.Run l'app via docker:docker run --network="host" -e REDIS_HOST=127.0.0.1 -d flask-webapp
+3.Run l'app via docker:docker run --network="host" -e REDIS_HOST=127.0.0.1 -d flask-webapp (a remplacer en fonction du nom de container)
+
+docker run --network="host" -e REDIS_HOST=127.0.0.1 flask-webapp
+
+docker run --network="host" -e REDIS_HOST=127.0.0.1 balbil/flask-webapp (image docker hub)
 
 4.Verifier que le contanier run avec:docker ps
 
 5.Le container run en background grace au -d dans la commande run, stopper le container avec:docker stop idcontainer (l'ID container est affiché avec docker ps,juste copier coller)
 
 
+
+
+
+Docker compose:
+
+
+Demarrer le container:docker-compose up -d
+
+Attention!: Redis est démarré par docker-compose, il faut donc arreter les services redis avant de up:sudo service redis stop
+
+Debugging:docker-compose logs -f (permet de voir le log du container)
+
+Verifier que le container run:docker-compose ps
+
+Arreter le container:docker-compose down
+
+
+
+
+Kubernetes:
+
+
+(Se placer dans WebApp/)
+
+1.Demarrer minikube:minikube start
+
+2.Deployer les services/pvc/deploiements:kubectl apply -f kube/
+
+3.Checker l'etat des pods/services:kubectl get pods
+					kubectl get services
+					kubectl get pvc (doit etre bound)
+
+4.Exposer le service:minikube service flask-service (deux liens s'affichent, prendre le deuxieme pour ouvrir l'app)
+
+5.Debugging:kubectl logs "nom-de-pod"
+	kubectl get all
+
+6.Stopper le tout:kubectl delete -f kube/
+		minikube stop
 
 
 

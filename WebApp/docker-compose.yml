@@ -1,0 +1,27 @@
+version: '3.9'
+
+services:
+  webapp:
+    image: balbil/flask-webapp:latest
+    container_name: flask_webapp
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"  # Maps host port 5000 to container port 5000
+    environment:
+      REDIS_HOST: redis  # Redis hostname defined in this file
+      FLASK_ENV: development  # Flask environment
+    depends_on:
+      - redis  # Ensures Redis starts before the web app
+
+  redis:
+    image: redis:7.0
+    container_name: redis_db
+    ports:
+      - "6379:6379"  # Maps host port 6379 to container port 6379
+    volumes:
+      - redis_data:/data  # Persistent storage for Redis
+
+volumes:
+  redis_data:
