@@ -50,7 +50,7 @@ jobs:
     #   working-directory: ./WebApp
     #   run: docker-compose up -d
 
-    - name: Apply Kubernetes manifests
-      run: |
-        kubectl apply -f WebApp/kube/
-        kubectl rollout status deployment flask-deployment
+    # - name: Apply Kubernetes manifests
+    #   run: |
+    #     kubectl apply -f WebApp/kube/
+    #     kubectl rollout status deployment flask-deployment
