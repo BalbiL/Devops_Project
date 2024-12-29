@@ -61,9 +61,13 @@ config.vm.network "private_network", ip: "192.168.56.10"
 Docker:
 1.Demarrer Redis:sudo service redis start
 
-2.build l'image de l'app:docker build -t flask-webapp . (ou pull depuis dockerhub)
+2.build l'image de l'app:docker build -t flask-webapp . (ou pull depuis dockerhub:docker pull balbil/flask-webapp)
 
 3.Run l'app via docker:docker run --network="host" -e REDIS_HOST=127.0.0.1 -d flask-webapp (a remplacer en fonction du nom de container)
+
+docker run --network="host" -e REDIS_HOST=127.0.0.1 flask-webapp
+
+docker run --network="host" -e REDIS_HOST=127.0.0.1 balbil/flask-webapp (image docker hub)
 
 4.Verifier que le contanier run avec:docker ps
 
