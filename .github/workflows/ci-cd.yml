@@ -30,7 +30,7 @@ jobs:
 
     - name: Run Flask app check
       run: |
-        WebApp/python app.py &
+        python WebApp/app.py &
         sleep 5  # Attendre que le serveur démarre
         curl -I http://127.0.0.1:5000  # Vérifier que l'app répond
 
