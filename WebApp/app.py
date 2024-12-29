@@ -22,8 +22,8 @@ else:
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
 
-# Dynamically retrieve Redis host
-redis_host = os.getenv('REDIS_HOST', 'redis')  # Default to 'redis' for Docker Compose
+# Redis connection
+
 r = redis.StrictRedis(host=redis_host, port=6379, decode_responses=True)
 
 

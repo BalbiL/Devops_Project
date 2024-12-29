@@ -15,7 +15,7 @@
           - python3-pip
           - python3-venv
         state: present
-      # when: false  # Skip if using Docker Compose (Docker will handle everything)
+     
 
     # Install Redis
     - name: Install Redis
@@ -51,16 +51,4 @@
         requirements: /vagrant/dependances.txt
         executable: /usr/bin/pip3
 
-    # Build and start the application using Docker Compose
-    # - name: Start the web application using Docker Compose
-    #   command: docker-compose -f /home/vagrant/docker-compose up -d
-    #   args:
-    #     chdir: /home/vagrant
-    #     creates: /home/vagrant/docker-compose.yml
-
-    # # (Optional) Verify the containers are running
-    # - name: Check Docker container status
-    #   command: docker ps
-    #   register: docker_status
-    # - debug:
-    #     var: docker_status.stdout
+ 
