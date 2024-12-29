@@ -92,82 +92,153 @@ Incompatibility Between Istio and WSL2:
 ## II. Screenshots
 All screenshots are stored in the `captures/` folder. Here are the explaination for every screen:
 
-### 1. WebApp
-   ![User Creation & Message History](captures/page_web1.jpg)
-   ![](captures/page_web2.jpg)
-Screenshots of the page web.
 
-   ![Running app](captures/running_webapp.png)  
-Running app inside a python virtual environment (venv) with python only
+<hr style="border: 1px dashed #333;">
+
+### 1. WebApp
+<div style="text-align: center;">
+   <img src="captures/page_web1.jpg" width="900"/> <br> 
+   <img src="captures/page_web2.jpg" width="900"/> <br> 
+   Screenshots of the page web.
+   <br> <br> 
+
+   <img src="captures/running_webapp.png" width="700"/> <br>
+   Running app inside a python virtual environment (venv) with python only.
+   <br> <br> 
+</div>
+
+
+<hr style="border: 1px dashed #333;">
 
 ### 2. CI/CD
-   ![](captures/CI1.png)
-Working Ci/CD pipeline.
-   ![](captures/CI2.png)
-Integration with python Flask app check.
-   ![](captures/CI3.png)
-Deployment with build of docker image.
-   ![](captures/CI4.png)
-Error for Kubernetes Continuous Deployment.
-   ![](captures/CI5.png)
-Error for docker compose Continuous Deployment.
+<div style="text-align: center;">
+   <img src="captures/CI_screen/CI1.png" width="900"/> <br> 
+   Working Ci/CD pipeline.
+   <br> <br> 
+
+   <img src="captures/CI_screen/CI2.png" width="700"/> <br> 
+   Integration with python Flask app check.
+   <br> <br> 
+
+   <img src="captures/CI_screen/CI3.png" width="500"/> <br> 
+   Deployment with build of docker image.
+   <br> <br> 
+
+   <img src="captures/CI_screen/CI4.png" width="1000"/> <br> 
+   Error for Kubernetes Continuous Deployment.
+   <br> <br> 
+
+   <img src="captures/CI_screen/CI5.png" width="1000"/> <br> 
+   Error for docker compose Continuous Deployment.
+   <br> <br> 
+</div>
+
+
+<hr style="border: 1px dashed #333;">
 
 ### 3. Docker image
-   ![](captures/dockerimage1.png)
-Building docker image of app thanks to dockerfile.
-   ![](captures/dockerimage2.png)
-Built docker image.
-   ![](captures/dockerimage3.png)
-Running docker container in the background, ensure it is running with docker ps.
+<div style="text-align: center;">
+   <img src="captures/dockerimage_screen/dockerimage1.png" width="1000"/> <br> 
+   Building docker image of app thanks to dockerfile.
+   <br> <br> 
+
+   <img src="captures/dockerimage_screen/dockerimage2.png" width="700"/> <br> 
+   Built docker image.
+   <br> <br> 
+
+   <img src="captures/dockerimage_screen/dockerimage3.png" width="900"/> <br> 
+   Running docker container in the background, ensure it is running with docker ps.
+   <br> <br> 
+</div>
+
+
+<hr style="border: 1px dashed #333;">
 
 ### 4. Docker compose
-   ![](captures/dockercompose1.png)
-Trying to use docker-compose with Redis already started: fails, because docker-compose file starts Redis itself and here the 6379 port is already taken by the previously started Redis services.
-   ![](captures/dockercompose2.png)
-Running the app with docker-compose (can run in the background as well). Here you can see the automatic redis connection does not fail since the redis services were not already started.
-   ![](captures/dockercompose3.png)
-Docker-compose running in background then stopping it.
+<div style="text-align: center;">
+   <img src="captures/dockercompose_screen/dockercompose1.png" width="900"/> <br> 
+   Trying to use docker-compose with Redis already started: fails, because docker-compose file starts Redis itself and here the 6379 port is already taken by the previously started Redis services.
+   <br> <br> 
+
+   <img src="captures/dockercompose_screen/dockercompose2.png" width="800"/> <br> 
+   Running the app with docker-compose (can run in the background as well). Here you can see the automatic redis connection does not fail since the redis services were not already started.
+   <br> <br> 
+   
+   <img src="captures/dockercompose_screen/dockercompose3.png" width="800"/> <br> 
+   Docker-compose running in background then stopping it.
+  <br> <br> 
+</div>
+
+
+<hr style="border: 1px dashed #333;">
 
 ### 5. Orchestration using Kubernetes
-   ![](captures/kub1.png)
-Applying all manifest files after starting minikube (all files are in the `/kube` directory, so that you can apply them all at once.)
-   ![](captures/kub2.png)
-kube directory
-   ![](captures/kub3.png)
-Exposing the service for the flask app with Minikube. App is now accessible via a browser using the second displayed ip address: (localhost) and port.
+<div style="text-align: center;">
+   <img src="captures/kub_screen/kub1.png" width="600"/> <br> 
+   
+   Applying all manifest files after starting minikube (all files are in the `/kube` directory, so that you can apply them all at once.)
+   <br> <br> 
+
+   <img src="captures/kub_screen/kub2.png" width="800"/> <br> 
+   kube directory
+   <br> <br> 
+
+   <img src="captures/kub_screen/kub3.png" width="600"/> <br> 
+   Exposing the service for the flask app with Minikube. App is now accessible via a browser using the second displayed ip address: (localhost) and port.
+   <br> <br> 
+</div>
+
+
+
+<hr style="border: 1px dashed #333;">
 
 ### 6. Configure and provision a virtual environment / IaC approach
 **Note**: As explained in part **III-Instructions**, this part runs from a windows machine.
 
-   ![](captures/VM1.png)
-`Vagrant up` to restart the powered off VM (if you have no previous VM, the first vagrant up will create a new VM and provision it with ansible at the same time).
-   ![](captures/VM2.png)
-Provisioning the VM with our ansible playbook. We can see each task runs well.
+<div style="text-align: center;">
+   <img src="captures/VM_screen/VM1.png" width="700"/> <br> 
 
-   ![](captures/VM3.png)
-Connecting with ssh from the host machine to the VM terminal.
+   `Vagrant up` to restart the powered off VM (if you have no previous VM, the first vagrant up will create a new VM and provision it with ansible at the same time).
+   <br> <br> 
 
-   ![](captures/VM4.png)
-Accessing the shared folder inside the VM (copy of the `/WebApp` directory on the host machine).
+   <img src="captures/VM_screen/VM2.png" width="800"/> <br> 
+   Provisioning the VM with our ansible playbook. We can see each task runs well.
+   <br> <br> 
 
-   ![](captures/VM5.png)
-Creating a python virtual environment on the VM, activating it and installing the requirements inside the venv. 
+   <img src="captures/VM_screen/VM3.png" width="600"/> <br> 
+   Connecting with ssh from the host machine to the VM terminal.
+   <br> <br>
 
-**Note**:The python virtual environment must be created outside of the shared folder of the VM, or it will prompt an error:
+   <img src="captures/VM_screen/VM4.png" width="1000"/> <br> 
+   
+   Accessing the shared folder inside the VM (copy of the `/WebApp` directory on the host machine).
+   <br> <br> 
 
-   ![](captures/VM6.png)
-Error when creating the venv in the shared folder.
+   <img src="captures/VM_screen/VM5.png" width="600"/> <br> 
+   Creating a python virtual environment on the VM, activating it and installing the requirements inside the venv. 
+   <br> <br> 
+</div>
 
-   ![](captures/VM7.png)
-Running the app with python on the VM.
+**Note**: The python virtual environment must be created outside of the shared folder of the VM, or it will prompt an error:
 
-   ![](captures/VM8.png)
-   ![](captures/VM9.png)
-Docker and docker hub images on the VM.
+<div style="text-align: center;">
+   <img src="captures/VM_screen/VM6.png" width="600"/> <br> 
+   Error when creating the venv in the shared folder.
+   <br> <br> 
 
-   ![](captures/VM10.png)
-App running in a docker container on the VM.
+   <img src="captures/VM_screen/VM7.png" width="700"/> <br> 
+   Running the app with python on the VM.
+   <br> <br> 
 
+   <img src="captures/VM_screen/VM8.png" width="700"/> <br> 
+   <img src="captures/VM_screen/VM9.png" width="700"/> <br> 
+   Docker and docker hub images on the VM.
+   <br> <br> 
+
+   <img src="captures/VM_screen/VM10.png" width="900"/> <br> 
+   App running in a docker container on the VM.
+   <br> <br> 
+</div>
 
 ## III. Instructions
 
