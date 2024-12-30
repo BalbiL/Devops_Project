@@ -1,39 +1,54 @@
----
 - hosts: all
-  become: yes
+  become: true
 
   tasks:
-    - name: Update package repository
+    # Update apt packages
+    - name: Update apt packages
       apt:
         update_cache: yes
 
-    - name: Install system dependencies
+    # Install Python 3 and pip (this may no longer be necessary if we're using Docker)
+    - name: Install Python 3 and pip3
       apt:
         name:
           - python3
           - python3-pip
-          - redis-server
+          - python3-venv
+        state: present
+     
+
+    # Install Redis
+    - name: Install Redis
+      apt:
+        name: redis-server
         state: present
 
-    - name: Install Python dependencies
-      pip:
-        name:
-          - flask
-          - redis
-
-    - name: Start Redis server
+    - name: Ensure Redis is started
       service:
         name: redis-server
         state: started
         enabled: yes
 
-    - name: Copy application files
-      synchronize:
-        src: /vagrant/
-        dest: /var/www/flask-app/
-        delete: yes
 
-    - name: Run Flask app
-      shell: |
-        cd /var/www/flask-app
-        nohup python3 app.py > /dev/null 2>&1 &
+    
+
+    # Install Docker
+    - name: Install Docker
+      apt:
+        name:
+          - docker.io
+          - docker-compose
+        state: present
+
+    - name: Start and enable Docker service
+      service:
+        name: docker
+        state: started
+        enabled: yes
+
+    - name: Install Python dependencies
+      pip:
+        requirements: /vagrant/dependances.txt
+        executable: /usr/bin/pip3
+
+ 
