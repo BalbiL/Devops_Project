@@ -1,11 +1,16 @@
-from flask import *
+import os
 import redis
+from flask import *
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
 
-# Connect to Redis
-r = redis.StrictRedis(host='localhost', port=6379, decode_responses=True)
+# Dynamically retrieve Redis host
+redis_host = os.getenv('REDIS_HOST', 'localhost')
+r = redis.StrictRedis(host=redis_host, port=6379, decode_responses=True)
+
+
+
 
 @app.route('/')
 def index():

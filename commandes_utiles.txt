@@ -28,4 +28,32 @@ Prerequis:Installer Redis,python, pip et les dependances dans "depandances.txt".
 6.Afficher l'app sur un browser en copiant collant ce qu'il y ecrit après le "running on" (lien HTTP avec addresse ip et numero de port)
 
 
+Docker:
+1.Demarrer Redis:sudo service redis start
 
+2.build l'image de l'app:docker build -t flask-webapp .
+
+3.Run l'app via docker:docker run --network="host" -e REDIS_HOST=127.0.0.1 -d flask-webapp
+
+4.Verifier que le contanier run avec:docker ps
+
+5.Le container run en background grace au -d dans la commande run, stopper le container avec:docker stop idcontainer (l'ID container est affiché avec docker ps,juste copier coller)
+
+
+
+
+
+GitHub:
+Push modifs:
+git add .
+
+git commit -m"Message de commit"
+
+git push origin Lucas
+
+Pull modifs:
+
+git fetch
+git checkout branch-mate
+
+git pull origin branch-mate
