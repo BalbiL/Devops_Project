@@ -3,6 +3,12 @@ Authors: Lucas BALBI, Elise BRUNETON et Victor DENIS.
 
 ## Description
 This project is a messaging platform that allows users to create accounts, send messages, and manage conversations. 
+Organization:
+   - I. Work Performed
+   - II. Screenshots
+   - III. Instructions
+   - IV. Links
+   - V. Additional Info
 
 ## I. Work Performed
 ### 1. Web Application
